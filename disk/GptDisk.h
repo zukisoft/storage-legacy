@@ -1,0 +1,115 @@
+//---------------------------------------------------------------------------
+// ZukiSoft Disk Management
+//
+// The use and distribution terms for this software are covered by the
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by
+// the terms of this license. You must not remove this notice, or any other,
+// from this software.
+//
+// Contributor(s):
+//	Michael G. Brehm (original author)
+//---------------------------------------------------------------------------
+
+#ifndef __GPTDISK_H_
+#define __GPTDISK_H_
+#pragma once
+
+#include "Disk.h"						// Include Disk declarations
+#include "DiskApi.h"					// Include DiskApi declarations
+#include "DiskUtil.h"					// Include DiskUtil declarations
+#include "GptPartition.h"				// Include GptPartition declarations
+
+#pragma warning(push, 4)				// Enable maximum compiler warnings
+#pragma warning(disable:4461)			// Finalizer without destructor
+
+using namespace System;
+
+BEGIN_NAMESPACE(zuki)
+BEGIN_NAMESPACE(storage)
+BEGIN_NAMESPACE(disk)
+
+// FORWARD DECLARATIONS
+ref class GptPartitionList;
+
+//---------------------------------------------------------------------------
+// Class GptDisk
+//
+// EFI/GPT Disk Management Class
+//---------------------------------------------------------------------------
+
+public ref class GptDisk : public Disk
+{
+public:
+
+	//-----------------------------------------------------------------------
+	// Properties
+
+	// DiskId
+	//
+	// Gets/sets the disk identification guid
+	property Guid DiskId
+	{
+		Guid get(void) { return DiskUtil::UUIDToSysGuid(m_pLayoutGpt->DiskId); }
+		void set(Guid value);
+	}
+
+	// MaxPartitionCount
+	//
+	// Gets the maximum number of partitions allowed on the disk
+	property int MaxPartitionCount
+	{
+		int get(void) { return static_cast<int>(m_pLayoutGpt->MaxPartitionCount); }
+	}
+
+	// Partitions
+	//
+	// Gets a reference to the contained Partition collection
+	property GptPartitionList^ Partitions
+	{
+		GptPartitionList^ get(void) { return m_partitions; }
+	}
+
+	// StartingUsableOffset
+	//
+	// Gets the starting byte offset of the first usable block
+	property __int64 StartingUsableOffset
+	{
+		__int64 get(void) { return static_cast<__int64>(m_pLayoutGpt->StartingUsableOffset.QuadPart); }
+	}
+
+	// UsableLength
+	//
+	// Gets the size of the usable blocks on the disk, in bytes
+	property __int64 UsableLength
+	{
+		__int64 get(void) { return static_cast<__int64>(m_pLayoutGpt->UsableLength.QuadPart); }
+	}
+
+internal:
+
+	// INTERNAL CONSTRUCTORS
+	GptDisk(HANDLE handle, PDISK_GEOMETRY_EX pGeometry, PDRIVE_LAYOUT_INFORMATION_EX pLayout);
+
+private:
+
+	// FINALIZER
+	!GptDisk();
+
+	//-----------------------------------------------------------------------
+	// Member Variables
+
+	PDRIVE_LAYOUT_INFORMATION_GPT	m_pLayoutGpt;		// GPT specific layout
+	GptPartitionList^				m_partitions;		// Partition collection
+};
+
+//---------------------------------------------------------------------------
+
+END_NAMESPACE(disk)
+END_NAMESPACE(storage)
+END_NAMESPACE(zuki)
+
+#pragma warning(pop)
+
+#endif	// __GPTDISK_H_

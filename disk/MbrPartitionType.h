@@ -1,0 +1,62 @@
+//---------------------------------------------------------------------------
+// ZukiSoft Disk Management
+//
+// The use and distribution terms for this software are covered by the
+// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+// which can be found in the file CPL.TXT at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by
+// the terms of this license. You must not remove this notice, or any other,
+// from this software.
+//
+// Contributor(s):
+//	Michael G. Brehm (original author)
+//---------------------------------------------------------------------------
+
+#ifndef __MBRPARTITIONTYPE_H_
+#define __MBRPARTITIONTYPE_H_
+#pragma once
+
+#pragma warning(push, 4)				// Enable maximum compiler warnings
+
+using namespace System;
+
+BEGIN_NAMESPACE(zuki)
+BEGIN_NAMESPACE(storage)
+BEGIN_NAMESPACE(disk)
+
+//---------------------------------------------------------------------------
+// Enum MbrPartitionType
+//
+// Defines partition type codes
+
+public enum struct MbrPartitionType : unsigned char
+{
+	Unused				= PARTITION_ENTRY_UNUSED,
+	FAT12				= PARTITION_FAT_12,
+	Xenix1				= PARTITION_XENIX_1,
+	Xenix2				= PARTITION_XENIX_2,
+	FAT16				= PARTITION_FAT_16,
+	Extended			= PARTITION_EXTENDED,
+	Huge				= PARTITION_HUGE,
+	IFS					= PARTITION_IFS,
+	OS2BootManager		= PARTITION_OS2BOOTMGR,
+	FAT32				= PARTITION_FAT32,
+	XInt13				= PARTITION_XINT13,
+	XInt13Extended		= PARTITION_XINT13_EXTENDED,
+	PReP				= PARTITION_PREP,
+	LDM					= PARTITION_LDM,
+	Unix				= PARTITION_UNIX,
+	Linux				= 0x83,					// <--- Not recognized by Windows
+	Spaces				= PARTITION_SPACES,
+	NTFT				= PARTITION_NTFT
+};
+
+//---------------------------------------------------------------------------
+
+END_NAMESPACE(disk)
+END_NAMESPACE(storage)
+END_NAMESPACE(zuki)
+
+#pragma warning(pop)
+
+#endif	// __MBRPARTITIONTYPE_H_
