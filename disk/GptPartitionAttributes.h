@@ -32,8 +32,10 @@ BEGIN_NAMESPACE(disk)
 [FlagsAttribute]
 public enum struct GptPartitionAttributes : unsigned __int64
 {
-	None					= 0,
+	None					= 0x00,
 	PlatformRequired		= GPT_ATTRIBUTE_PLATFORM_REQUIRED,
+	FirmwareIgnore			= 0x02,
+	LegacyBoot				= 0x04,
 	NoDriveLetter			= GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER,
 	Hidden					= GPT_BASIC_DATA_ATTRIBUTE_HIDDEN,
 	ShadowCopy				= GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY,
