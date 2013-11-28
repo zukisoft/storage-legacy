@@ -138,7 +138,7 @@ __int64 GptPartitionList::FindAlignedLargestFreeSpace(__int64% length)
 
 	// Start with the extents of the empty disk
 	__int64	start = DiskUtil::AlignUp(m_disk->StartingUsableOffset, m_alignment);
-	__int64	end = DiskUtil::AlignDown(start + m_disk->UsableLength, m_alignment);
+	__int64	end = DiskUtil::AlignDown(m_disk->StartingUsableOffset + m_disk->UsableLength, m_alignment);
 
 	// Iterate over each partition to find the free space
 	for(int index = 0; index < sorted->Length; index++) {
