@@ -36,6 +36,11 @@ public value class GptPartitionType sealed
 {
 public:
 
+	// Constructor
+	//
+	// Necessary since Microsoft doesn't define all the possible type uuids
+	GptPartitionType(Guid type) : m_type(type) {}
+
 	//-----------------------------------------------------------------------
 	// Overloaded Operators
 
