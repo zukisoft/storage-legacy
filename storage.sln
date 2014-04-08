@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "storage.vdisk", "vdisk\storage.vdisk.vcxproj", "{9D295EC7-48CC-4506-A8C2-50A618935F4F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AE336390-38E3-45E3-9B73-1C596DE35E76} = {AE336390-38E3-45E3-9B73-1C596DE35E76}
